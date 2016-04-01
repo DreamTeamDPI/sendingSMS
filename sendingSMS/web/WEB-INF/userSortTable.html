@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<table class="simple-little-table" >
+    <thead>
+    <tr>
+        <th style="width: 100px;">Имя</th>
+        <th style="width: 100px;">Фамилия</th>
+        <th style="width: 100px;">Отчество</th>
+        <th style="width: 100px;">Логин</th>
+        <th style="width: 100px;">Роль</th>
+        <th style="width: 100px;">Изменить/Удалить</th>
+        <th style="width: 100px;">Изменить/Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userList}" th:id="${user.idUser}">
+        <td th:text="${user.firstName}">null</td>
+        <td th:text="${user.lastName}">null</td>
+        <td th:text="${user.patronomic}">null</td>
+        <td th:text="${user.login}">null</td>
+        <td th:text="${user.roleIdRole}">null</td>
+        <td><a class="btn btn-lg btn-success" th:onclick="|edit(${user.idUser})|">Изменить</a></td>
+        <td><a class="btn btn-lg btn-success" href="#" th:onclick="'clickme(\'' + ${user.idUser} +'\')'">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="bot-navigation" th:each="number : ${listNumberPage}" align="center">
+    <a th:href="@{/UserList(page=${number})}" th:text="${number}">1</a>
+</div>
+
+<li id="secondStepInfoTab" class="active"><a th:href="@{/UserList}">Пользователей <span class="badge" th:text="${size}"> null"</span></a>
+</li>
