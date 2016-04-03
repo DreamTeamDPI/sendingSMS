@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <title>СМС</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+   <link rel="stylesheet" type="text/css" th:href="@{../css/RoleList.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{test.css}"/>
+
+     <script th:src="@{/WEB-INF/js/jquery-2.2.0.min.js}"></script>
+     <script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">Страница входа</div>
+    <div class="content">
+        <div tiles:fragment="content">
+            <form name="f" th:action="@{/login}" method="post">
+                <fieldset>
+                    <div class="imput_data">
+                        <div th:if="${param.error}" class="alert alert-error">
+                            Что-то пошло не так:(
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            Вы вышли из системы.
+                        </div>
+                        <div>
+                            <label class="text_align" for="login">Имя пользователя</label>
+                            <input  type="text" id="ssoId" name="ssoId"  placeholder="Ваш логин"/>
+                        </div>
+                        <div>
+                            <label class="text_align" for="password">Пароль</label>
+                            <input  type="password" id="password" name="password"  placeholder="Ваш пароль"/>
+                            </div>
+                    </div>
+                    <button type="submit" >Войти</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="footer">&copy; СМС Рассылка </div>
+</div>
+</body>
+</html>

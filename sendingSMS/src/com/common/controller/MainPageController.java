@@ -13,6 +13,11 @@ public class MainPageController {
 
     @RequestMapping(value = "/MainPage", method = RequestMethod.GET)
     public String loginPage() {
-        return "MainPage";
+        return "pages/MainPage";
+    }
+
+    @RequestMapping(value = "/Test", method = RequestMethod.GET)
+    public String testPage() {
+        return "pages/Test";
     }
 }
