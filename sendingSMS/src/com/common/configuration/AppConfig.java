@@ -14,8 +14,7 @@ import org.springframework.context.annotation.Import;
  * @author SEMEN
  */
 @Configuration
-@Import({ThymeleafConfig.class, DataConfig.class, SecurityConfiguration.class})
-//@ComponentScan("com.common.service.*")
+@Import({ThymeleafConfig.class, SecurityConfiguration.class})
 public class AppConfig {
 
 
