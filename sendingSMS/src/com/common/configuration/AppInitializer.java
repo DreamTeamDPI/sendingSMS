@@ -1,4 +1,4 @@
-package com.common.config;
+package com.common.configuration;
 
 public class AppInitializer {//implements WebApplicationInitializer {
 

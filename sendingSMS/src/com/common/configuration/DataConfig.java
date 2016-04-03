@@ -1,18 +1,7 @@
-package com.common.config;
+package com.common.configuration;
 
-import org.flywaydb.core.Flyway;
-import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.sql.DataSource;
-import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
@@ -88,7 +77,7 @@ public class DataConfig {
 
 
 
-//package com.common.config;
+//package com.common.configuration;
 //
 //import com.common.model.Department;
 //import com.common.model.Employer;

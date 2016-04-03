@@ -10,14 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 @Controller
-public class HelloWorldController {
+public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginPage() {
 		System.out.println("hi");
-		return "hi";
+		File test = new File("da");
+		return "pages/LodinPage";
+
 	}
       
 
@@ -30,7 +33,7 @@ public class HelloWorldController {
 		return "redirect:/login?logout";
 	}
 
-	private String getPrincipal(){
+	/*private String getPrincipal(){
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -40,7 +43,7 @@ public class HelloWorldController {
 			userName = principal.toString();
 		}
 		return userName;
-	}
+	}*/
 
 
 }
