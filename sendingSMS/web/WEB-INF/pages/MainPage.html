@@ -7,13 +7,56 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>
-
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/simple-sidebar.css}"/>
 
     <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
     <script th:src="@{../resources/js/bootstrap.min.js}"></script>
 </head>
 <body>
-    <h1>Ты смог</h1>
-    <div th:include="template/navigation :: copy"></div>
+
+<div class="container">
+    <div class="header">Главная страница</div>
+
+    <div class="content">
+        <div  th:include="template/navigation :: copy(content=1)"></div>
+ыываывсывсывсывсывсывdsdsdf
+        sd
+        fsdfsd
+        fsdfsd
+        f
+        sdf
+        sd
+        f
+        sdf
+    </div>
+    <div id="sidebar">
+        <ul>
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li>
+                <a href="#">Shortcuts</a>
+            </li>
+            <li>
+                <a href="#">Overview</a>
+            </li>
+            <li>
+                <a href="#">Events</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer">Тест </div>
+</div>
 </body>
 </html>

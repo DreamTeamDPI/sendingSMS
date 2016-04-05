@@ -2,28 +2,30 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-    <head lang="ru">  
+<head lang="ru">
 
-        <title>Spring Framework Guru</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link rel="stylesheet" type="text/css" th:href="@{/WEB-INF/css/RoleList.css}" />
-        <link rel="stylesheet" type="text/css" th:href="@{/WEB-INF/css/bootstrap.css}" />
-        <script th:src="@{/WEB-INF/js/jquery-2.2.0.min.js}"></script>
-        <script th:src="@{/WEB-INF/js/bootstrap.min.js}"></script>
-        <script th:src="@{/WEB-INF/js/ajaxExample.js}"></script>
-    </head>
-    <body>
+    <title>Spring Framework Guru</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/WEB-INF/css/RoleList.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/WEB-INF/css/bootstrap.css}"/>
 
-        <div th:fragment="copy">
-            <ul class="nav nav-tabs">
-  
-  <li class="active"> <a th:href="@{/MainPage}">Главная</a></li>
-  <li><a th:href="@{/Test}">Логин</a></li>
-    <li><a th:href="@{/Test}">Кредит</a></li>
-  <li><a th:align="right" th:href="@{/logout}">Выход</a></li>
-</ul>
-        </div>
+    <script th:src="@{/WEB-INF/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{/WEB-INF/js/bootstrap.min.js}"></script>
+    <script th:src="@{/WEB-INF/js/ajaxExample.js}"></script>
+</head>
+<body>
 
-    </body>
+<div th:fragment="copy">
+
+    <ul class="nav nav-tabs">
+
+        <li th:class="${content}==1?active"><a th:href="@{/MainPage}">Главная</a></li>
+        <li><a th:href="@{../MainPage/sms}">СМС</a></li>
+        <li><a th:href="@{../MainPage/user}">Пользователь</a></li>
+        <li><a th:align="right" th:href="@{/logout}">Выход</a></li>
+    </ul>
+</div>
+
+</body>
 
 </html>

@@ -1,14 +1,15 @@
 body {
-    font: 13pt Arial, Helvetica, sans-serif; /* Шрифт теста */
+
+    font: 11pt Arial, Helvetica, sans-serif; /* Шрифт теста */
     background: #e1dfb9; /* Цвет фона */
 }
 h2 {
-    font-size: 18px; /* Размер шрифта в заголовке */
+    font-size: 14px; /* Размер шрифта в заголовке */
     color: #080808; /* Цвет заголовка */
     margin-top: 0; /* Отступ сверху */
 }
 .container {
-    width: 600px; /* Ширина слоя */
+    width: 900px; /* Ширина слоя */
     margin: 0 auto; /* Выравнивнить весь блок по центру */
     background: #f0f0f0; /* Цвет фона левой колонки */
 }
@@ -19,9 +20,15 @@ h2 {
     background: #8fa09b; /* Цвет фона шапки */
     color: #fff; /* Цвет текста */
 }
-
+.sidebar {
+    margin-top: 10px;
+    width: 110px; /* Ширина блока */
+    padding: 0 10px; /* Отступы внутри левого блока */
+    float: left; /* Обтекание блока по правому краю */
+}
 .content {
-
+    margin-left: 110px;
+    background-color: #d58512;
     padding: 10px; /* Отступы внутри правого блока */
     background: #fff; /* Цвет фона правого блока */
 }

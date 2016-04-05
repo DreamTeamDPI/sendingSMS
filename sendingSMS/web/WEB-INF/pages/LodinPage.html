@@ -12,10 +12,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/font-awesome.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/font.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/>
+
 
      <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
      <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+
+
 </head>
 
 <body>
@@ -23,9 +25,9 @@
     <div class="header">Страница входа</div>
     <div class="content">
         <div tiles:fragment="content">
-            <form name="f" th:action="@{/login}" method="post">
+            <form  class="form-signin" name="f" th:action="@{/login}" method="post">
                 <fieldset>
-                    <div class="imput_data">
+                    <div class="imput_data" align="centerz">
                         <div th:if="${param.error}" class="alert alert-error">
                             Что-то пошло не так:(
                         </div>
@@ -33,15 +35,16 @@
                             Вы вышли из системы.
                         </div>
                         <div>
-                            <label class="text_align" for="login">Имя пользователя</label>
-                            <input  type="text" id="ssoId" name="ssoId"  placeholder="Ваш логин"/>
+                            <p class="text_align" for="login">Имя пользователя</p>
+                            <input class="form-control" type="text" id="ssoId" name="ssoId"  placeholder="Ваш логин"/>
                         </div>
                         <div>
-                            <label class="text_align" for="password">Пароль</label>
-                            <input  type="password" id="password" name="password"  placeholder="Ваш пароль"/>
+                            <p class="text_align" for="password">Пароль</p>
+                            <input class="form-control" type="password" id="password" name="password"  placeholder="Ваш пароль"/>
                             </div>
+                        <button  type="submit" class="btn btn-lg btn-primary btn-block" >Войти</button>
                     </div>
-                    <button type="submit" >Войти</button>
+
                 </fieldset>
             </form>
         </div>
