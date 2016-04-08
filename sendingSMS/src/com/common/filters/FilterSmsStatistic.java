@@ -3,7 +3,7 @@ package com.common.filters;
 /**
  * Created by SemmEs on 03.04.2016.
  */
-public class FilterUserStatistic {
+public class FilterSmsStatistic {
 
     private String dateBegin;
     private String dateEnd;
@@ -11,10 +11,10 @@ public class FilterUserStatistic {
     private int status;
 
 
-    public FilterUserStatistic() {
+    public FilterSmsStatistic() {
     }
 
-    public FilterUserStatistic(String dateBegin, String dateEnd, int status, String phone) {
+    public FilterSmsStatistic(String dateBegin, String dateEnd, int status, String phone) {
         this.dateBegin = dateBegin;
         this.dateEnd = dateEnd;
         this.status = status;

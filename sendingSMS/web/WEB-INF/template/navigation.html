@@ -18,7 +18,7 @@
 <div th:fragment="nav-bar">
     <ul class="nav nav-tabs">
         <li th:class="${content}==1?active"><a th:href="@{/MainPage}">Главная</a></li>
-        <li><a th:href="@{../MainPage/sms}">СМС</a></li>
+        <li th:class="${content}==2?active"><a th:href="@{../MainPage/sms}">СМС</a></li>
         <li><a th:href="@{../MainPage/user}">Пользователь</a></li>
         <li><a th:align="right" th:href="@{/logout}">Выход</a></li>
     </ul>
@@ -26,7 +26,7 @@
 
 <div th:fragment="left-sidebar">
     <ul class="nav nav-pills nav-stacked">
-        <li><a th:href="@{/MainPage/smsStatistic}">Отправить смс</a></li>
+        <li><a th:href="@{/MainPage/smsSend}">Отправить смс</a></li>
         <li><a th:href="@{/MainPage/smsStatistic}">СТатистика</a></li>
         <li><a href="#">Платежи</a></li>
         <li><a href="#">Настройки</a></li>
