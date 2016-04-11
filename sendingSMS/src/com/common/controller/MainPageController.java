@@ -1,25 +1,26 @@
 package com.common.controller;
 
+import com.common.PatternSms;
 import com.common.filters.FilterSmsStatistic;
 import com.common.sms.SMS;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,9 @@ import java.util.List;
 @RequestMapping("/MainPage")
 public class MainPageController {
 
+
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView loginPage() {
@@ -78,10 +82,53 @@ public class MainPageController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
+    public void sendFileToClient(HttpServletRequest request, HttpServletResponse response) throws IOException {
+// get absolute path of the application
+        ServletContext context = request.getServletContext();
+        String appPath = context.getRealPath("/uploads/");
+        System.out.println("appPath = " + appPath);
+
+        // construct the complete absolute path of the file
+        String fullPath = appPath + "patternOfSms.xml";
+        File downloadFile = new File(fullPath);
+        FileInputStream inputStream = new FileInputStream(downloadFile);
+
+        // get MIME type of the file
+        String mimeType = context.getMimeType(fullPath);
+        if (mimeType == null) {
+            // set to binary type if MIME mapping not found
+            mimeType = "application/octet-stream";
+        }
+        System.out.println("MIME type: " + mimeType);
+
+        // set content attributes for the response
+        response.setContentType(mimeType);
+        response.setContentLength((int) downloadFile.length());
+
+        // set headers for the response
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                downloadFile.getName());
+        response.setHeader(headerKey, headerValue);
+
+        // get output stream of the response
+        OutputStream outStream = response.getOutputStream();
+        int BUFFER_SIZE = 4096;
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int bytesRead = -1;
+
+        // write bytes read from the input stream into the output stream
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
+        }
+
+        inputStream.close();
+        outStream.close();
+    }
+
     @RequestMapping(value = "/smsSending", method = RequestMethod.POST)
     public ModelAndView getSmsFile(@RequestParam("text") String text, @RequestParam("file") MultipartFile file) {
-
-        System.out.println("hello " + text);
         if (file == null)
             System.out.println("error");
         else {
@@ -92,86 +139,51 @@ public class MainPageController {
             }
         }
 
-        SMS sms = new SMS();
+        String uploadsDir = "/uploads/";
+        String realPathtoUploads = request.getServletContext().getRealPath(uploadsDir);
+        if (!new File(realPathtoUploads).exists()) {
+            new File(realPathtoUploads).mkdir();
+        }
+
+        //String orgName = file.getOriginalFilename();
+        String filePath = realPathtoUploads + "nameOfClient.xml";
+        System.out.println(filePath);
+        File dest = new File(filePath);
         try {
-            //File inputFile = new File();
-            DocumentBuilderFactory dbFactory
-                    = DocumentBuilderFactory.newInstance();
+            file.transferTo(dest);
+        } catch (IOException e) {
+            System.out.println("no ok");
+        }
+
+
+        List<PatternSms> smsList = new ArrayList<>();
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse();
+            Document doc = dBuilder.parse(dest);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element :"
-                    + doc.getDocumentElement().getNodeName());
+
             NodeList nList = doc.getElementsByTagName("sms");
             System.out.println("----------------------------");
+
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                System.out.println("\nCurrent Element :"
-                        + nNode.getNodeName());
-                /*if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    System.out.println("Student roll no : "
-                            + eElement.getAttribute("rollno"));
-                    System.out.println("First Name : "
-                            + eElement
-                            .getElementsByTagName("firstname")
-                            .item(0)
-                            .getTextContent());
-                    System.out.println("Last Name : "
-                            + eElement
-                            .getElementsByTagName("lastname")
-                            .item(0)
-                            .getTextContent());
-                    System.out.println("Nick Name : "
-                            + eElement
-                            .getElementsByTagName("nickname")
-                            .item(0)
-                            .getTextContent());
-                    System.out.println("Marks : "
-                            + eElement
-                            .getElementsByTagName("marks")
-                            .item(0)
-                            .getTextContent());
-                }*/
+                    String textSms = eElement.getElementsByTagName("text").item(0).getTextContent();
+                    String phoneSms = eElement.getElementsByTagName("phone").item(0).getTextContent();
+                    smsList.add(new PatternSms(textSms, phoneSms));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //dest.delete();
+        for (int i = 0; i < smsList.size(); i++)
+            System.out.println(smsList.get(i).toString());
 
-        return new ModelAndView("pages/Test");
+        return new ModelAndView("pages/MainPage");
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/upload")
-    public String handleFileUpload(@RequestParam("name") String name,
-                                   @RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
-        if (name.contains("/")) {
-            redirectAttributes.addFlashAttribute("message", "Folder separators not allowed");
-            return "redirect:upload";
-        }
-        if (name.contains("/")) {
-            redirectAttributes.addFlashAttribute("message", "Relative pathnames not allowed");
-            return "redirect:upload";
-        }
-
-        if (!file.isEmpty()) {
-            try {
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(new File("test.txt")));
-                FileCopyUtils.copy(file.getInputStream(), stream);
-                stream.close();
-                redirectAttributes.addFlashAttribute("message",
-                        "You successfully uploaded !");
-            } catch (Exception e) {
-                redirectAttributes.addFlashAttribute("message",
-                        "You failed to upload " + name + " => " + e.getMessage());
-            }
-        } else {
-            redirectAttributes.addFlashAttribute("message",
-                    "You failed to upload " + name + " because the file was empty");
-        }
-
-        return "redirect:upload";
-    }
 
 }
