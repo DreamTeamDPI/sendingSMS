@@ -68,7 +68,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="sms : ${smsList}" th:id="${sms.id}">
+                <tr th:each="sms : ${smsList}">
                     <td th:text="${sms.phone}">null</td>
                     <td th:text="${sms.text}">null</td>
                     <td th:text="${sms.data}">null</td>
