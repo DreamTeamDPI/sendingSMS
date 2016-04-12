@@ -1,6 +1,6 @@
 package com.common.controller;
 
-import com.common.PatternSms;
+import com.common.Message;
 import com.common.filters.FilterSmsStatistic;
 import com.common.sms.SMS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -129,9 +126,11 @@ public class MainPageController {
 
     @RequestMapping(value = "/smsSending", method = RequestMethod.POST)
     public ModelAndView getSmsFile(@RequestParam("text") String text, @RequestParam("file") MultipartFile file) {
-        if (file == null)
+
+        if (file == null) {
             System.out.println("error");
-        else {
+            return null;
+        } else {
             try {
                 System.out.println(file.getOriginalFilename() + "  b = " + file.getBytes().length);
             } catch (IOException e) {
@@ -139,13 +138,12 @@ public class MainPageController {
             }
         }
 
-        String uploadsDir = "/uploads/";
+/*        String uploadsDir = "/uploads/";
         String realPathtoUploads = request.getServletContext().getRealPath(uploadsDir);
         if (!new File(realPathtoUploads).exists()) {
             new File(realPathtoUploads).mkdir();
         }
 
-        //String orgName = file.getOriginalFilename();
         String filePath = realPathtoUploads + "nameOfClient.xml";
         System.out.println(filePath);
         File dest = new File(filePath);
@@ -153,34 +151,37 @@ public class MainPageController {
             file.transferTo(dest);
         } catch (IOException e) {
             System.out.println("no ok");
-        }
+        }*/
 
-
-        List<PatternSms> smsList = new ArrayList<>();
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(dest);
-            doc.getDocumentElement().normalize();
+/*вывод в консоль
+            Message message1 = new Message();
+            message1.setName("name");
+            ArrayList<XmlSMS> s = new ArrayList<>();
+            s.add(new XmlSMS("123","123"));
+            s.add(new XmlSMS("123124123","1123123"));
+            message1.setXmlSMSList(s);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.marshal(message1, System.out);
 
-            NodeList nList = doc.getElementsByTagName("sms");
-            System.out.println("----------------------------");
+*/
+            InputStream inputStream = file.getInputStream();
 
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    String textSms = eElement.getElementsByTagName("text").item(0).getTextContent();
-                    String phoneSms = eElement.getElementsByTagName("phone").item(0).getTextContent();
-                    smsList.add(new PatternSms(textSms, phoneSms));
-                }
-            }
-        } catch (Exception e) {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+
+            Message message = (Message) jaxbUnmarshaller.unmarshal(inputStream);
+            System.out.println(message);
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         //dest.delete();
-        for (int i = 0; i < smsList.size(); i++)
-            System.out.println(smsList.get(i).toString());
 
         return new ModelAndView("pages/MainPage");
     }
