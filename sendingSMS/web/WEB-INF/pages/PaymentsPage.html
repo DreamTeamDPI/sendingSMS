@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/>
+
+    <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+<div th:include="template/navigation :: nav-bar"></div>
+<div class="row">
+    <div class="col-xs-3">
+        <div th:include="template/navigation :: left-sidebar"></div>
+    </div>
+    <!---->
+    <div class="col-xs-9">
+
+        <div>
+            <div>
+                <form th:action="@{/MainPage/FilterPayment}" th:object="${paymentFilter}" method = "post">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <label for="dataBeginPaymentFilter">data</label>
+                            <input id="dataBeginPaymentFilter" type="text" class="form-control" th:field="*{dateBegin}"/>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="dataEndPaymentFilter">data</label>
+                            <input id="dataEndPaymentFilter" type="text" class="form-control" th:field="*{dateEnd}"/>
+                        </div>
+
+                        <div id="filterSmsStat">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th data-type="string" style="width: 100px;">Дата</th>
+                    <th data-type="string" style="width: 100px;">Стоимость</th>
+                    <th data-type="string" style="width: 100px;">Кол-во</th>
+                    <th data-type="string" style="width: 100px;">Последняя колонка</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="payment : ${paymentList}">
+                    <td th:text="${payment.data}">null</td>
+                    <td th:text="${payment.cost}">null</td>
+                    <td th:text="${payment.count}">null</td>
+                    <td th:text="${payment.lastColumn}">null</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    footer
+</div>
+
+</body>
+</html>

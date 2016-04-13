@@ -1,0 +1,29 @@
+/*вывод в консоль
+            Message message1 = new Message();
+            message1.setName("name");
+            ArrayList<XmlSMS> s = new ArrayList<>();
+            s.add(new XmlSMS("123","123"));
+            s.add(new XmlSMS("123124123","1123123"));
+            message1.setXmlSMSList(s);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            jaxbMarshaller.marshal(message1, System.out);
+
+*/
+
+
+
+/*        String uploadsDir = "/uploads/";
+        String realPathtoUploads = request.getServletContext().getRealPath(uploadsDir);
+        if (!new File(realPathtoUploads).exists()) {
+            new File(realPathtoUploads).mkdir();
+        }
+
+        String filePath = realPathtoUploads + "nameOfClient.xml";
+        System.out.println(filePath);
+        File dest = new File(filePath);
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            System.out.println("no ok");
+        }*/
