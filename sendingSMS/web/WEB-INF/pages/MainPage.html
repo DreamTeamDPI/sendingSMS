@@ -15,71 +15,14 @@
 
 <body>
 
-<div th:include="template/navigation :: nav-bar(content=1)"></div>
+<div th:include="template/navigation :: nav-bar"></div>
 <div class="row">
     <div class="col-xs-3">
         <div th:include="template/navigation :: left-sidebar"></div>
     </div>
     <!---->
     <div class="col-xs-9">
-
-        <div th:if="!${#lists.isEmpty(smsList)}">
-
-            private String dateBegin;
-            private String dateEnd;
-            private String phone;
-            private int status;
-
-            <div>
-                <form th:action="@{/MainPage/FilterSms}" th:object="${filterSms}" method = "post">
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <label for="idFilter">id</label>
-                            <input id="idFilter" type="text" class="form-control" th:field="*{status}" placeholder=".col-xs-2"/>
-                        </div>
-                        <div class="col-xs-3">
-                            <label for="phoneFilter">Phone</label>
-                            <input id="phoneFilter" type="text" class="form-control" th:field="*{phone}" placeholder=".col-xs-3"/>
-                        </div>
-                        <div class="col-xs-4">
-                            <label for="dataBeginFilter">data</label>
-                            <input id="dataBeginFilter" type="text" class="form-control" th:field="*{dateBegin}" placeholder=".col-xs-4"/>
-                        </div>
-                        <div class="col-xs-4">
-                            <label for="dataEndFilter">data</label>
-                            <input id="dataEndFilter" type="text" class="form-control" th:field="*{dateEnd}" placeholder=".col-xs-4"/>
-                        </div>
-
-                        <div id="filterSmsStat">
-                            <input type="submit" value="submit"/>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <table class="table table-condensed">
-                <thead>
-                <tr>
-                    <th data-type="string" style="width: 100px;">Телефон</th>
-                    <th data-type="string" style="width: 100px;">Текст</th>
-                    <th data-type="string" style="width: 100px;">Дата</th>
-                    <th data-type="string" style="width: 100px;">Статус</th>
-                    <th data-type="number" style="width: 100px;">Стоимость</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="sms : ${smsList}">
-                    <td th:text="${sms.phone}">null</td>
-                    <td th:text="${sms.text}">null</td>
-                    <td th:text="${sms.data}">null</td>
-                    <td th:text="${sms.status}">null</td>
-                    <td th:text="${sms.price}">null</td>
-                </tr>
-                </tbody>
-
-            </table>
-        </div>
-        <div th:if="${#lists.isEmpty(smsList)}"><h2>Welcome to our service!</h2></div>
+        <div><h2>Welcome to our service!</h2></div>
     </div>
 </div>
 <div class="footer">

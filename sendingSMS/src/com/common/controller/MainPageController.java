@@ -1,8 +1,10 @@
 package com.common.controller;
 
-import com.common.Message;
+import com.common.filters.FilterPaymentStatistic;
 import com.common.filters.FilterSmsStatistic;
+import com.common.payments.Payment;
 import com.common.sms.SMS;
+import com.common.xmlparser.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.ArrayList;
@@ -38,37 +39,6 @@ public class MainPageController {
         ModelAndView model = new ModelAndView("pages/MainPage");
 
 
-        return model;
-    }
-
-    @RequestMapping(value = "/smsStatistic", method = RequestMethod.GET)
-    public ModelAndView getSmsStatistic(FilterSmsStatistic filterSmsStatistic) {
-        ModelAndView model = new ModelAndView("pages/MainPage");
-
-        List<SMS> smsList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            smsList.add(new SMS("+3932141202*", "texasdasdasdasdt", "2015.10.10", 1, 20.1));
-            smsList.add(new SMS("+3921302*", "texaasdasdasdasdasdasssssdsdasdt", "2015.10.10", 0, 20.1));
-            smsList.add(new SMS("+3921302*", "texaasdasdasdasdasdasssssdsdasdt", "2015.10.10", 0, 20.1));
-            smsList.add(new SMS("+39123402*", "texasdasdt", "2015.10.10", 0, 20.1));
-            smsList.add(new SMS("+3912341202*", "teasdsadxt", "2015.10.10", 1, 20.1));
-        }
-        model.addObject("smsList", smsList);
-        model.addObject("filterSms", filterSmsStatistic);
-        return model;
-    }
-
-    @RequestMapping(value = "/FilterSms", method = RequestMethod.POST)
-    public ModelAndView getFilterSms(FilterSmsStatistic filterSmsStatistic) {
-        ModelAndView model = new ModelAndView("pages/MainPage");
-        System.out.println(filterSmsStatistic.toString());
-        List<SMS> smsList = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            smsList.add(new SMS("+3932141202*", "texasdasdasdasdt", "2015.10.10", 1, 20.1));
-            smsList.add(new SMS("+3921302*", "texaasdasdasdasdasdasssssdsdasdt", "2015.10.10", 0, 20.1));
-        }
-        model.addObject("smsList", smsList);
-        model.addObject("filterSms", filterSmsStatistic);
         return model;
     }
 
@@ -125,66 +95,101 @@ public class MainPageController {
     }
 
     @RequestMapping(value = "/smsSending", method = RequestMethod.POST)
-    public ModelAndView getSmsFile(@RequestParam("text") String text, @RequestParam("file") MultipartFile file) {
+    public ModelAndView getSmsFile(@RequestParam(value = "phone", required = false) String phone,
+                                   @RequestParam(value = "text", required = false) String text,
+                                   @RequestParam(value = "file", required = false) MultipartFile file) {
 
         if (file == null) {
-            System.out.println("error");
-            return null;
+            if(phone.isEmpty() || text.isEmpty()){
+                return new ModelAndView("pages/Test");
+            } else {
+                System.out.println(phone + "  " + text);
+            }
         } else {
             try {
-                System.out.println(file.getOriginalFilename() + "  b = " + file.getBytes().length);
-            } catch (IOException e) {
-                e.printStackTrace();
+                InputStream inputStream = file.getInputStream();
+                JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                Message message = (Message) jaxbUnmarshaller.unmarshal(inputStream);
+                System.out.println(message);
+            }  catch (Exception e) {
+                return new ModelAndView("pages/Test");
             }
         }
-
-/*        String uploadsDir = "/uploads/";
-        String realPathtoUploads = request.getServletContext().getRealPath(uploadsDir);
-        if (!new File(realPathtoUploads).exists()) {
-            new File(realPathtoUploads).mkdir();
-        }
-
-        String filePath = realPathtoUploads + "nameOfClient.xml";
-        System.out.println(filePath);
-        File dest = new File(filePath);
-        try {
-            file.transferTo(dest);
-        } catch (IOException e) {
-            System.out.println("no ok");
-        }*/
-
-        try {
-/*вывод в консоль
-            Message message1 = new Message();
-            message1.setName("name");
-            ArrayList<XmlSMS> s = new ArrayList<>();
-            s.add(new XmlSMS("123","123"));
-            s.add(new XmlSMS("123124123","1123123"));
-            message1.setXmlSMSList(s);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            jaxbMarshaller.marshal(message1, System.out);
-
-*/
-            InputStream inputStream = file.getInputStream();
-
-            JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
-
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-
-
-            Message message = (Message) jaxbUnmarshaller.unmarshal(inputStream);
-            System.out.println(message);
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //dest.delete();
-
         return new ModelAndView("pages/MainPage");
     }
 
+    @RequestMapping(value = "/smsStatistic", method = RequestMethod.GET)
+    public ModelAndView getSmsStatistic(FilterSmsStatistic filterSmsStatistic) {
+        ModelAndView model = new ModelAndView("pages/StatisticSMSPage");
 
+        List<SMS> smsList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            smsList.add(new SMS("+3932141202*", "texasdasdasdasdt", "2015.10.10", 1, 20.1));
+            smsList.add(new SMS("+3921302*", "texaasdasdasdasdasdasssssdsdasdt", "2015.10.10", 0, 20.1));
+            smsList.add(new SMS("+3921302*", "texaasdasdasdasdasdasssssdsdasdt", "2015.10.10", 0, 20.1));
+            smsList.add(new SMS("+39123402*", "texasdasdt", "2015.10.10", 0, 20.1));
+            smsList.add(new SMS("+3912341202*", "teasdsadxt", "2015.10.10", 1, 20.1));
+        }
+        model.addObject("smsList", smsList);
+        model.addObject("filterSms", filterSmsStatistic);
+        return model;
+    }
+
+    @RequestMapping(value = "/FilterSms", method = RequestMethod.POST)
+    public ModelAndView getFilterSms(FilterSmsStatistic filterSmsStatistic) {
+        ModelAndView model = new ModelAndView("pages/StatisticSMSPage");
+        System.out.println(filterSmsStatistic.toString());
+        List<SMS> smsList = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            smsList.add(new SMS("+3932141202*", "texasdasdasdasdt", "2015.10.10", 1, 20.1));
+            smsList.add(new SMS("+3921302*", "texaasdasdasdasdasdasssssdsdasdt", "2015.10.10", 0, 20.1));
+        }
+        model.addObject("smsList", smsList);
+        model.addObject("filterSms", filterSmsStatistic);
+        return model;
+    }
+
+    @RequestMapping(value = "/paymentsStatistic", method = RequestMethod.GET)
+    public ModelAndView getPaymentsStatistic(FilterPaymentStatistic filterPaymentStatistic) {
+        ModelAndView model = new ModelAndView("pages/PaymentsPage");
+
+        List<Payment> paymentList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            paymentList.add(new Payment("20.20.2020",10.23,13,"Smth in last col"));
+            paymentList.add(new Payment("21.20.2020",11.23,13,"Smth in last col"));
+            paymentList.add(new Payment("21.20.2020",11.23,13,"Smth in last col"));
+            paymentList.add(new Payment("22.20.2020",12.23,13,"Smth in last col"));
+            paymentList.add(new Payment("23.20.2020",13.23,13,"Smth in last col"));
+
+        }
+        model.addObject("paymentFilter", filterPaymentStatistic);
+        model.addObject("paymentList", paymentList);
+        return model;
+    }
+
+    @RequestMapping(value = "/FilterPayment", method = RequestMethod.POST)
+    public ModelAndView getFilterPayment(FilterPaymentStatistic filterPaymentStatistic) {
+        ModelAndView model = new ModelAndView("pages/PaymentsPage");
+
+        System.out.println(filterPaymentStatistic.toString());
+
+        List<Payment> paymentList = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            paymentList.add(new Payment("20.20.2020",10.23,13,"Smth in last col"));
+            paymentList.add(new Payment("21.20.2020",11.23,13,"Smth in last col"));
+            paymentList.add(new Payment("21.20.2020",11.23,13,"Smth in last col"));
+
+        }
+        model.addObject("paymentFilter", filterPaymentStatistic);
+        model.addObject("paymentList", paymentList);
+        return model;
+    }
+
+    @RequestMapping(value = "/Settings", method = RequestMethod.GET)
+    public ModelAndView getSettingPage(){
+        ModelAndView modelAndView = new ModelAndView();
+
+        return modelAndView;
+    }
 }

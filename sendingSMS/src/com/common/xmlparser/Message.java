@@ -1,4 +1,4 @@
-package com.common;
+package com.common.xmlparser;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

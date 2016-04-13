@@ -1,4 +1,4 @@
-package com.common;
+package com.common.xmlparser;
 
 /**
  * Created by SemmEs on 11.04.2016.
