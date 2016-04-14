@@ -5,7 +5,7 @@ package com.common.sms;
  */
 public class SMS {
 
-    private int id;
+
     private String phone;
     private String text;
     private String data;
@@ -15,21 +15,12 @@ public class SMS {
     public SMS() {
     }
 
-    public SMS(int id,String phone, String text, String data, int status, double price) {
+    public SMS(String phone, String text, String data, int status, double price) {
         this.phone = phone;
         this.text = text;
         this.data = data;
         this.status = status;
         this.price = price;
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getPhone() {

@@ -15,20 +15,36 @@
 </head>
 <body>
 
-<div th:fragment="nav-bar">
+<!--<div th:fragment="nav-bar">
     <ul class="nav nav-tabs">
         <li th:class="${content}==1?active"><a th:href="@{/MainPage}">Главная</a></li>
         <li th:class="${content}==2?active"><a th:href="@{../MainPage/sms}">СМС</a></li>
         <li><a th:href="@{../MainPage/user}">Пользователь</a></li>
         <li><a th:align="right" th:href="@{/logout}">Выход</a></li>
     </ul>
-</div>
+</div>-->
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="nav-bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/MainPage}">Главная</a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user">Логин <span class="badge" th:text="${user}">Vasya</span></span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user">Кредит <span class="badge" th:text="${credit}">50к</span></span> </a></li>
+            <li><a  th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Выход</a></li>
+        </ul>
+    </div>
+</nav>
+
 
 <div th:fragment="left-sidebar">
     <ul class="nav nav-pills nav-stacked">
         <li><a th:href="@{/MainPage/smsSend}">Отправить смс</a></li>
         <li><a th:href="@{/MainPage/smsStatistic}">СТатистика</a></li>
-        <li><a href="#">Платежи</a></li>
+        <li><a th:href="@{/MainPage/paymentsStatistic}">Платежи</a></li>
         <li><a href="#">Настройки</a></li>
     </ul>
 </div>

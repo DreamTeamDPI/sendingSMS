@@ -55,7 +55,7 @@ public class FilterSmsStatistic {
 
     @Override
     public String toString() {
-        return "FilterUserStatistic{" +
+        return "FilterSmsStatistic{" +
                 "dateBegin='" + dateBegin + '\'' +
                 ", dateEnd='" + dateEnd + '\'' +
                 ", phone='" + phone + '\'' +
