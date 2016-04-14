@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+<div th:include="template/navigation :: nav-bar"></div>
+<div class="row">
+    <div class="col-xs-3">
+        <div th:include="template/navigation :: left-sidebar"></div>
+    </div>
+    <!---->
+    <div class="col-xs-9">
+
+        <div>
+            <div>
+                <form th:action="@{/MainPage/FilterSms}" th:object="${filterSms}" method = "post">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <label for="statusFilter">id</label>
+                            <input id="statusFilter" type="text" class="form-control" th:field="*{status}"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="phoneFilter">Phone</label>
+                            <input id="phoneFilter" type="text" class="form-control" th:field="*{phone}"/>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="dataBeginFilter">data</label>
+                            <input id="dataBeginFilter" type="text" class="form-control" th:field="*{dateBegin}"/>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="dataEndFilter">data</label>
+                            <input id="dataEndFilter" type="text" class="form-control" th:field="*{dateEnd}"/>
+                        </div>
+
+                        <div id="filterSmsStat">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th data-type="string" style="width: 100px;">Телефон</th>
+                    <th data-type="string" style="width: 100px;">Текст</th>
+                    <th data-type="string" style="width: 100px;">Дата</th>
+                    <th data-type="string" style="width: 100px;">Статус</th>
+                    <th data-type="number" style="width: 100px;">Стоимость</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sms : ${smsList}">
+                    <td th:text="${sms.phone}">null</td>
+                    <td th:text="${sms.text}">null</td>
+                    <td th:text="${sms.data}">null</td>
+                    <td th:text="${sms.status}">null</td>
+                    <td th:text="${sms.price}">null</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:include="template/navigation :: footer"></div>
+
+</body>
+</html>

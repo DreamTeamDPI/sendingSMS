@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="" />
+        <datasource-mapping>
+          <factory-entry name="HelpDeskPU" />
+        </datasource-mapping>
+        <deploymentDescriptor name="orm.xml" url="file://$MODULE_DIR$/META-INF/orm.xml" />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/conf/persistence.xml" />
+      </configuration>
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="context.xml" url="file://$MODULE_DIR$/META-INF/context.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/web" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/com/common/configuration/AppConfig.java</file>
+          <file>file://$MODULE_DIR$/src/com/common/configuration/SecurityConfiguration.java</file>
+          <file>file://$MODULE_DIR$/src/com/common/configuration/ThymeleafConfig.java</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="library" level="project" />
+    <orderEntry type="library" name="library" level="project" />
+    <orderEntry type="library" name="library" level="project" />
+    <orderEntry type="library" name="library" level="project" />
+    <orderEntry type="library" name="library" level="project" />
+    <orderEntry type="library" name="library" level="project" />
+    <orderEntry type="library" name="library" level="project" />
+  </component>
+</module>
