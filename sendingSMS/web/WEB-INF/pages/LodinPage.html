@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <title>СМС</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+   <link rel="stylesheet" type="text/css" th:href="@{../resources/css/RoleList.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/font.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/forLoginPage.css}"/>
+
+
+     <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+     <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+
+
+</head>
+
+<body>
+<div class="wrapDiv">
+    <div class="header"><h2>Страница входа</h2>></div>
+    <div class="content">
+        <div tiles:fragment="content">
+            <form  class="form-signin" name="f" th:action="@{/login}" method="post">
+                <fieldset>
+                    <div class="imput_data" align="centerz">
+                        <div th:if="${param.error}" class="alert alert-error">
+                            Что-то пошло не так:(
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success">
+                            Вы вышли из системы.
+                        </div>
+                        <div>
+                            <p class="text_align" for="login">Имя пользователя</p>
+                            <input class="form-control" type="text" id="ssoId" name="ssoId"  placeholder="Ваш логин"/>
+                        </div>
+                        <div>
+                            <p class="text_align" for="password">Пароль</p>
+                            <input class="form-control" type="password" id="password" name="password"  placeholder="Ваш пароль"/>
+                            </div>
+                        <button  type="submit" class="btn btn-lg btn-primary btn-block" >Войти</button>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="footer">&copy; СМС Рассылка </div>
+</div>
+</body>
+</html>

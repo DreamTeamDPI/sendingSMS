@@ -1,0 +1,65 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head lang="ru">
+
+    <title>Spring Framework Guru</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>-->
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/toastr.css}"/>
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+    <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{../resources/js/toastr.min.js}"></script>
+    <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{../resources/js/downloadingPage.js}"></script>
+</head>
+<body>
+
+<!--<div th:fragment="nav-bar">
+    <ul class="nav nav-tabs">
+        <li th:class="${content}==1?active"><a th:href="@{/MainPage}">Главная</a></li>
+        <li th:class="${content}==2?active"><a th:href="@{../MainPage/sms}">СМС</a></li>
+        <li><a th:href="@{../MainPage/user}">Пользователь</a></li>
+        <li><a th:align="right" th:href="@{/logout}">Выход</a></li>
+    </ul>
+</div>-->
+
+
+<div th:fragment="nav-bar">
+    <nav class="navbar navbar-inverse ">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/MainPage}">Главная</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"> <span class="badge"
+                                                                              th:text="${user}">Vasya</span></span>Логин</a>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-usd"> <span class="badge"
+                                                                             th:text="${credit}">50к</span></span>Кредит
+                </a></li>
+                <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-in"></span> Выход</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+<div th:fragment="left-sidebar">
+    <ul class="nav nav-pills nav-stacked">
+        <li th:class="${content}==1?active"><a th:href="@{/MainPage/smsSend}">Отправить смс</a></li>
+        <li th:class="${content}==2?active"><a th:href="@{/MainPage/smsStatistic}">Статистика</a></li>
+        <li th:class="${content}==3?active"><a th:href="@{/MainPage/paymentsStatistic}">Платежи</a></li>
+        <li th:class="${content}==4?active"><a th:href="@{/MainPage/Settings}">Настройки</a></li>
+    </ul>
+</div>
+</body>
+
+</html>

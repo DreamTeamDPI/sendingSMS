@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}"/><!--
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>-->
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/><!--
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+<div th:include="template/navigation :: nav-bar"></div>
+<div class="row">
+    <div class="col-xs-3">
+        <div th:include="template/navigation :: left-sidebar"></div>
+    </div>
+    <!---->
+    <div class="col-xs-9">
+        <div><h2>Добро пожаловать!</h2>
+            <p>Смс-рассылка — совокупность аппаратно-программных средств для отправки большого количества коротких сообщений (sms) на мобильные устройства абонентов сотовых сетей.</p>
+        </div>
+        <img src="http://www.pronline.ru/ri/3188/SMS-rassylki-pod-pritsielom-SMI-i-bloghierov_1.png"/>
+    </div>
+</div>
+
+</body>
+</html>
