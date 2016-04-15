@@ -6,13 +6,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/toastr.css}"/>
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
     <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{../resources/js/toastr.min.js}"></script>
     <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{../resources/js/downloadingPage.js}"></script>
+
+    <script th:src="@{../resources/js/date/bootstrap-datepicker.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/date/bootstrap-datepicker.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/date/bootstrap-datepicker.standalone.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/date/bootstrap-datepicker3.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/date/bootstrap-datepicker3.standalone.min.css}"/>
 </head>
 
 <body>
@@ -30,24 +39,24 @@
                 <form th:action="@{/MainPage/FilterSms}" th:object="${filterSms}" method = "post">
                     <div class="row">
                         <div class="col-xs-2">
-                            <label for="statusFilter">id</label>
-                            <input id="statusFilter" type="text" class="form-control" th:field="*{status}"/>
+                            <label for="statusFilter">Статус</label>
+                            <input id="statusFilter"  type="text" class="form-control" th:field="*{status}"/>
                         </div>
                         <div class="col-xs-3">
-                            <label for="phoneFilter">Phone</label>
+                            <label for="phoneFilter">Телефон</label>
                             <input id="phoneFilter" type="text" class="form-control" th:field="*{phone}"/>
                         </div>
                         <div class="col-xs-4">
-                            <label for="dataBeginFilter">data</label>
+                            <label for="dataBeginFilter">От</label>
                             <input id="dataBeginFilter" type="text" class="form-control" th:field="*{dateBegin}"/>
                         </div>
                         <div class="col-xs-4">
-                            <label for="dataEndFilter">data</label>
+                            <label for="dataEndFilter">До</label>
                             <input id="dataEndFilter" type="text" class="form-control" th:field="*{dateEnd}"/>
                         </div>
 
                         <div id="filterSmsStat">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success">Фильтр</button>
                         </div>
                     </div>
                 </form>
@@ -75,9 +84,6 @@
             </table>
         </div>
     </div>
-</div>
-<div class="footer">
-    footer
 </div>
 
 </body>

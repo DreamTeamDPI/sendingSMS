@@ -6,13 +6,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/toastr.css}"/>
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
     <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{../resources/js/toastr.min.js}"></script>
     <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{../resources/js/downloadingPage.js}"></script>
+
+    <script language="javascript">
+        function a() {
+            toastr.info('Are you the 6 fingered man?');
+            setTimeout(a, 2000);
+        }
+    </script>
 </head>
 
 <body>
@@ -30,15 +40,15 @@
                 <div id="oneSms" class="tab-pane fade in active">
                     <h3>Отправка смс</h3>
                     <div>
-                        <form method="post" th:action="@{/MainPage/smsSending}" enctype="multipart/form-data" role="form">
+                        <form name="sendOneSmsName" onsubmit="return sendOneSMS()" method="post" th:action="@{/MainPage/smsSending}" enctype="multipart/form-data" role="form">
                             <div class="form-group">
-                                <label for="phoneSms"> Введите телефон </label>
-                                <input id="phoneSms" type="tel" name="phone"/>
-                                <label for="textSms"> Введите текст </label>
-                                <input id="textSms" type="text" name="text"/>
+                                <label for="phoneSms" > Введите телефон </label>
+                                <input id="phoneSms" class="form-control" type="text" name="phone"/>
+                                <label for="textSms" > Введите текст </label>
+                                <input id="textSms" type="text" name="text" class="form-control"/>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success">Отправить</button>
                             </div>
 
                         </form>
@@ -50,13 +60,13 @@
                         <p>Шаблон для рассылки вы можете скачать <a th:href="@{/MainPage/downloadFile}">шаблон</a></p>
                     </div>
                     <div>
-                        <form method="post" th:action="@{/MainPage/smsSending}" enctype="multipart/form-data" role="form">
+                        <form name="sendFileName" onsubmit="return sendFileToServer()" method="post" th:action="@{/MainPage/smsSending}" enctype="multipart/form-data" role="form">
                             <div class="form-group">
                                 <label for="patterFileSms">Выберите файл </label>
                                 <input id="patterFileSms" type="file" name="file"/>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success">Отправить</button>
                             </div>
 
                         </form>
@@ -64,10 +74,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="footer">
-        footer
-    </div>
+<input class="sendingSMSControl" onclick="a();" type="hidden" value="0" th:value="${inputForControl}"/>
 </body>
 </html>

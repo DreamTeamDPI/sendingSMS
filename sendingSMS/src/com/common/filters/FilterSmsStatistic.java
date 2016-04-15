@@ -8,13 +8,13 @@ public class FilterSmsStatistic {
     private String dateBegin;
     private String dateEnd;
     private String phone;
-    private int status;
+    private String status;
 
 
     public FilterSmsStatistic() {
     }
 
-    public FilterSmsStatistic(String dateBegin, String dateEnd, int status, String phone) {
+    public FilterSmsStatistic(String dateBegin, String dateEnd, String status, String phone) {
         this.dateBegin = dateBegin;
         this.dateEnd = dateEnd;
         this.status = status;
@@ -45,11 +45,11 @@ public class FilterSmsStatistic {
         this.phone = phone;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

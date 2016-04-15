@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
@@ -99,7 +100,7 @@ public class MainPageController {
     public ModelAndView getSmsFile(@RequestParam(value = "phone", required = false) String phone,
                                    @RequestParam(value = "text", required = false) String text,
                                    @RequestParam(value = "file", required = false) MultipartFile file) {
-
+        ModelAndView model = new ModelAndView("pages/SmsSendPage");
         if (file == null) {
             if(phone.isEmpty() || text.isEmpty()){
                 return new ModelAndView("pages/Test");
@@ -117,7 +118,9 @@ public class MainPageController {
                 return new ModelAndView("pages/Test");
             }
         }
-        return new ModelAndView("pages/MainPage");
+        model.addObject("inputForControl",1);
+        model.addObject("content",1);
+        return model;
     }
 
     @RequestMapping(value = "/smsStatistic", method = RequestMethod.GET)
@@ -196,10 +199,12 @@ public class MainPageController {
         return modelAndView;
     }
     @RequestMapping(value = "/saveSetting", method = RequestMethod.POST)
-    public ModelAndView setSetting( String phone, String text) {
-
-        System.out.println(phone + text);
-        return new ModelAndView("pages/SettingPage");
+    public ModelAndView setSetting(@Valid String phone, String text) {
+        ModelAndView model =  new ModelAndView("pages/SettingPage");
+        System.out.println(phone+" " + text);
+        model.addObject("inputForControl",1);
+        model.addObject("content",4);
+        return model;
     }
     
 }

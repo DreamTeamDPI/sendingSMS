@@ -6,13 +6,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{../resources/css/bootstrap.min.css}"/>-->
     <link rel="stylesheet" type="text/css" th:href="@{../resources/css/test.css}"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-       <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/toastr.css}"/>
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
     <script th:src="@{../resources/js/jquery-2.2.0.min.js}"></script>
+    <script th:src="@{../resources/js/toastr.min.js}"></script>
     <script th:src="@{../resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{../resources/js/downloadingPage.js}"></script>
+
+    <script th:src="@{../resources/js/date/date.js}"></script>
+    <script th:src="@{../resources/js/date/jquery.js}"></script>
+    <script th:src="@{../resources/js/date/jquery.datePicker-2.1.2.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../resources/css/date/datePicker.css}"/>
 </head>
 
 <body>
@@ -30,16 +38,16 @@
                 <form th:action="@{/MainPage/FilterPayment}" th:object="${paymentFilter}" method = "post">
                     <div class="row">
                         <div class="col-xs-4">
-                            <label for="dataBeginPaymentFilter">data</label>
+                            <label for="dataBeginPaymentFilter">От</label>
                             <input id="dataBeginPaymentFilter" type="text" class="form-control" th:field="*{dateBegin}"/>
                         </div>
                         <div class="col-xs-4">
-                            <label for="dataEndPaymentFilter">data</label>
+                            <label for="dataEndPaymentFilter">До</label>
                             <input id="dataEndPaymentFilter" type="text" class="form-control" th:field="*{dateEnd}"/>
                         </div>
 
                         <div id="filterSmsStat">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success">Фильтр</button>
                         </div>
                     </div>
                 </form>
@@ -66,9 +74,5 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    footer
-</div>
-
 </body>
 </html>
