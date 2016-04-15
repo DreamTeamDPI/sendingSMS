@@ -195,6 +195,11 @@ public class MainPageController {
         modelAndView.addObject("content",4);
         return modelAndView;
     }
+    @RequestMapping(value = "/saveSetting", method = RequestMethod.POST)
+    public ModelAndView setSetting( String phone, String text) {
 
+        System.out.println(phone + text);
+        return new ModelAndView("pages/SettingPage");
+    }
     
 }
