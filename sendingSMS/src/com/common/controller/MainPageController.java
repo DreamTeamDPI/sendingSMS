@@ -46,6 +46,7 @@ public class MainPageController {
     public ModelAndView getSmsSend() {
         ModelAndView modelAndView = new ModelAndView("pages/SmsSendPage");
 
+        modelAndView.addObject("content",1);
         return modelAndView;
     }
 
@@ -133,6 +134,7 @@ public class MainPageController {
         }
         model.addObject("smsList", smsList);
         model.addObject("filterSms", filterSmsStatistic);
+        model.addObject("content",2);
         return model;
     }
 
@@ -165,6 +167,7 @@ public class MainPageController {
         }
         model.addObject("paymentFilter", filterPaymentStatistic);
         model.addObject("paymentList", paymentList);
+        model.addObject("content",3);
         return model;
     }
 
@@ -188,8 +191,8 @@ public class MainPageController {
 
     @RequestMapping(value = "/Settings", method = RequestMethod.GET)
     public ModelAndView getSettingPage(){
-        ModelAndView modelAndView = new ModelAndView();
-
+        ModelAndView modelAndView = new ModelAndView("pages/SettingPage");
+        modelAndView.addObject("content",4);
         return modelAndView;
     }
 

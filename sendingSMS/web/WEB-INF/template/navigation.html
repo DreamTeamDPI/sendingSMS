@@ -42,10 +42,10 @@
 
 <div th:fragment="left-sidebar">
     <ul class="nav nav-pills nav-stacked">
-        <li><a th:href="@{/MainPage/smsSend}">Отправить смс</a></li>
-        <li><a th:href="@{/MainPage/smsStatistic}">СТатистика</a></li>
-        <li><a th:href="@{/MainPage/paymentsStatistic}">Платежи</a></li>
-        <li><a href="#">Настройки</a></li>
+        <li th:class="${content}==1?active"><a th:href="@{/MainPage/smsSend}">Отправить смс</a></li>
+        <li th:class="${content}==2?active" ><a th:href="@{/MainPage/smsStatistic}">Статистика</a></li>
+        <li th:class="${content}==3?active"><a th:href="@{/MainPage/paymentsStatistic}">Платежи</a></li>
+        <li th:class="${content}==4?active"><a th:href="@{/MainPage/Settings}">Настройки</a></li>
     </ul>
 </div>
 </body>
